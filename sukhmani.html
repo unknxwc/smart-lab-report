@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<title>Sukhmani Clinical Lab - Devigarh (Patiala)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --primary: #0284c7;
+    --primary-dark: #0369a1;
+    --primary-light: #e0f2fe;
+    --surface: #ffffff;
+    --bg: #f8fafc;
+    --text-primary: #0f172a;
+    --text-secondary: #475569;
+    --border: #e2e8f0;
+    --shadow-md: 0 4px 14px -2px rgba(15, 23, 42, 0.08);
+    --shadow-lg: 0 10px 25px -4px rgba(15, 23, 42, 0.12);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: var(--bg);
+    color: var(--text-primary);
+    min-height: 100vh;
+  }
+
+  /* TOP NAVBAR */
+  .navbar {
+    background: #ffffff;
+    border-bottom: 1.5px solid var(--border);
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  }
+  .brand-group {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .brand-logo {
+    width: 42px;
+    height: 42px;
+    background: linear-gradient(135deg, #0284c7, #0d9488);
+    border-radius: 10px;
+    display: grid;
+    place-items: center;
+    color: white;
+    font-size: 20px;
+    font-weight: 800;
+    box-shadow: 0 3px 8px rgba(2, 132, 199, 0.3);
+  }
+  .brand-title {
+    font-size: 17px;
+    font-weight: 800;
+    color: #0369a1;
+    letter-spacing: -0.2px;
+  }
+  .brand-sub {
+    font-size: 11px;
+    color: #64748b;
+    font-weight: 600;
+  }
+  .nav-buttons {
+    display: flex;
+    gap: 8px;
+  }
+  .btn {
+    border: none;
+    outline: none;
+    cursor: pointer;
+    font-family: inherit;
+    font-weight: 700;
+    font-size: 13px;
+    padding: 9px 16px;
+    border-radius: 8px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.15s ease;
+  }
+  .btn:active { transform: scale(0.97); }
+  .btn-print {
+    background: linear-gradient(135deg, #0284c7, #0369a1);
+    color: white;
+    box-shadow: 0 2px 8px rgba(2, 132, 199, 0.3);
+  }
+  .btn-print:hover { background: #0369a1; }
+  .btn-wa {
+    background: #25d366;
+    color: white;
+    box-shadow: 0 2px 8px rgba(37, 211, 102, 0.3);
+  }
+  .btn-wa:hover { background: #1eb954; }
+  .btn-sample {
+    background: #f0fdf4;
+    color: #166534;
+    border: 1px solid #bbf7d0;
+  }
+
+  /* WORKSPACE */
+  .workspace {
+    max-width: 1380px;
+    margin: 18px auto;
+    padding: 0 16px;
+    display: grid;
+    grid-template-columns: 380px 1fr;
+    gap: 20px;
+    align-items: start;
+  }
+
+  /* LEFT CONTROL PANEL */
+  .control-card {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 18px;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-md);
+    position: sticky;
+    top: 75px;
+  }
+  .section-label {
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    color: var(--text-secondary);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  /* TEST CHIPS */
+  .chips-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 7px;
+    margin-bottom: 18px;
+  }
+  .chip {
+    padding: 8px 10px;
+    background: #f8fafc;
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    font-size: 11.5px;
+    font-weight: 700;
+    color: var(--text-secondary);
+    cursor: pointer;
+    text-align: left;
+    transition: all 0.15s ease;
+  }
+  .chip:hover {
+    background: var(--primary-light);
+    border-color: #38bdf8;
+    color: var(--primary-dark);
+  }
+  .chip.active {
+    background: #e0f2fe;
+    border-color: #0284c7;
+    color: #0369a1;
+  }
+
+  /* INPUT FIELDS */
+  .inp-group {
+    margin-bottom: 12px;
+  }
+  .inp-group label {
+    display: block;
+    font-size: 11.5px;
+    font-weight: 700;
+    color: var(--text-secondary);
+    margin-bottom: 4px;
+  }
+  .inp-control {
+    width: 100%;
+    padding: 8px 10px;
+    border: 1.5px solid var(--border);
+    border-radius: 6px;
+    font-size: 13px;
+    font-family: inherit;
+    color: var(--text-primary);
+    background: white;
+  }
+  .inp-control:focus {
+    outline: none;
+    border-color: var(--primary);
+  }
+  .grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  /* RIGHT: LIVE A4 PRINT CANVAS */
+  .a4-container {
+    display: flex;
+    justify-content: center;
+  }
+  .a4-page {
+    width: 100%;
+    max-width: 820px;
+    min-height: 1060px;
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 38px 45px;
+    box-shadow: var(--shadow-lg);
+    border: 1px solid var(--border);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  /* SUKHMANI LAB HEADER */
+  .lab-banner {
+    border-bottom: 3px double #0284c7;
+    padding-bottom: 14px;
+    margin-bottom: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .lab-main-title {
+    font-size: 24px;
+    font-weight: 900;
+    color: #0369a1;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    outline: none;
+  }
+  .lab-sub-title {
+    font-size: 12px;
+    font-weight: 700;
+    color: #334155;
+    margin-top: 3px;
+    outline: none;
+  }
+  .lab-addr {
+    font-size: 11px;
+    color: #64748b;
+    margin-top: 3px;
+    outline: none;
+  }
+  .lab-cert-box {
+    text-align: right;
+    font-size: 10.5px;
+    color: #0284c7;
+    font-weight: 700;
+    background: #f0f9ff;
+    padding: 6px 10px;
+    border-radius: 6px;
+    border: 1px solid #bae6fd;
+    line-height: 1.4;
+  }
+
+  /* PATIENT INFO STRIP */
+  .patient-strip {
+    border: 1.5px solid #cbd5e1;
+    border-radius: 8px;
+    padding: 10px 14px;
+    background: #f8fafc;
+    margin-bottom: 16px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px 24px;
+    font-size: 12.5px;
+  }
+  .p-row {
+    display: flex;
+    align-items: center;
+  }
+  .p-label {
+    width: 120px;
+    font-weight: 700;
+    color: #475569;
+    flex-shrink: 0;
+  }
+  .p-value {
+    font-weight: 700;
+    color: #0f172a;
+  }
+
+  /* DEPARTMENT TITLE */
+  .dept-title {
+    background: #f1f5f9;
+    border-left: 4px solid #0284c7;
+    padding: 6px 12px;
+    font-size: 12px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.7px;
+    color: #0f172a;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+
+  /* TABLE */
+  .results-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+  }
+  .results-table th {
+    text-align: left;
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: #0f172a;
+    border-bottom: 2px solid #0f172a;
+    padding: 7px 6px;
+  }
+  .results-table td {
+    padding: 6px 6px;
+    border-bottom: 1px solid #f1f5f9;
+    font-size: 12.5px;
+    vertical-align: middle;
+  }
+  .cell-inp {
+    width: 100%;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    padding: 4px 5px;
+    font-family: inherit;
+    font-size: 12.5px;
+    color: #0f172a;
+    background: transparent;
+  }
+  .cell-inp:hover, .cell-inp:focus {
+    border-color: #cbd5e1;
+    background: #ffffff;
+    outline: none;
+  }
+  .res-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 800;
+    font-size: 13px !important;
+  }
+  .badge {
+    font-size: 9.5px;
+    font-weight: 800;
+    padding: 2px 5px;
+    border-radius: 4px;
+    display: inline-block;
+  }
+  .badge-normal { background: #dcfce7; color: #15803d; }
+  .badge-high { background: #fee2e2; color: #b91c1c; }
+  .badge-low { background: #fef3c7; color: #b45309; }
+
+  .del-btn {
+    background: transparent;
+    border: none;
+    color: #cbd5e1;
+    font-size: 16px;
+    cursor: pointer;
+    font-weight: bold;
+    padding: 2px 6px;
+  }
+  .del-btn:hover { color: #ef4444; }
+
+  /* FOOTER */
+  .a4-footer {
+    border-top: 1px solid #e2e8f0;
+    padding-top: 16px;
+    margin-top: 35px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+  .disclaimer-text {
+    font-size: 10px;
+    color: #94a3b8;
+    line-height: 1.5;
+  }
+  .sign-box {
+    text-align: center;
+    width: 180px;
+  }
+  .sign-mock {
+    height: 30px;
+    font-family: cursive;
+    color: #0284c7;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .sign-line {
+    border-top: 1.5px solid #0f172a;
+    padding-top: 4px;
+    font-size: 11px;
+    font-weight: 800;
+    color: #0f172a;
+  }
+
+  /* PRINT MODE OVERRIDE */
+  @media print {
+    body { background: white !important; padding: 0 !important; }
+    .navbar, .control-card, .del-btn, .col-act, th.col-act { display: none !important; }
+    .workspace { display: block !important; margin: 0 !important; padding: 0 !important; }
+    .a4-container { width: 100% !important; margin: 0 !important; }
+    .a4-page {
+      border: none !important;
+      box-shadow: none !important;
+      padding: 10mm 15mm !important;
+      max-width: none !important;
+      width: 100% !important;
+      min-height: 0 !important;
+    }
+    .patient-strip { background: white !important; border: 1px solid #64748b !important; }
+    .dept-title { background: #f1f5f9 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .cell-inp { border: none !important; background: transparent !important; padding: 0 !important; color: black !important; }
+  }
+
+  /* MOBILE */
+  @media (max-width: 900px) {
+    .workspace { grid-template-columns: 1fr; }
+    .control-card { position: static; }
+    .a4-page { padding: 18px 16px; }
+    .lab-banner { flex-direction: column; align-items: flex-start; gap: 8px; }
+    .patient-strip { grid-template-columns: 1fr; gap: 5px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div class="brand-group">
+    <div class="brand-logo">🔬</div>
+    <div>
+      <div class="brand-title">Sukhmani Clinical Lab Software</div>
+      <div class="brand-sub">Shop No. 10, Sharma Market A, Devigarh (Patiala)</div>
+    </div>
+  </div>
+  <div class="nav-buttons">
+    <button class="btn btn-sample" onclick="loadTirathRam()">✨ Load Tirath Ram</button>
+    <button class="btn btn-wa" onclick="shareWhatsApp()">📱 WhatsApp Share</button>
+    <button class="btn btn-print" onclick="window.print()">🖨️ 1-Click Print / PDF</button>
+  </div>
+</nav>
+
+<!-- MAIN -->
+<div class="workspace">
+  
+  <!-- LEFT: CONTROL -->
+  <div class="control-card">
+    <div class="section-label">⚡ Select Test Package</div>
+    <div class="chips-grid">
+      <button class="chip active" onclick="loadPackage('biochem', this)">🧪 Biochemistry</button>
+      <button class="chip" onclick="loadPackage('cbc', this)">🩸 Hemogram (CBC)</button>
+      <button class="chip" onclick="loadPackage('lipid', this)">🫀 Lipid Profile</button>
+      <button class="chip" onclick="loadPackage('kft', this)">🫘 Kidney (KFT)</button>
+      <button class="chip" onclick="loadPackage('lft', this)">🟡 Liver (LFT)</button>
+      <button class="chip" onclick="loadPackage('thyroid', this)">🧬 Thyroid Panel</button>
+      <button class="chip" onclick="loadPackage('urine', this)" style="grid-column: span 2;">🔬 Urine Routine Exam</button>
+    </div>
+
+    <div class="section-label">👤 Patient Details</div>
+    <div class="inp-group">
+      <label>Patient Name</label>
+      <input type="text" class="inp-control" id="inName" value="TIRATH RAM" oninput="syncPatient()">
+    </div>
+    <div class="grid-2">
+      <div class="inp-group">
+        <label>Age & Gender</label>
+        <input type="text" class="inp-control" id="inAge" value="54 Yrs / Male" oninput="syncPatient()">
+      </div>
+      <div class="inp-group">
+        <label>Date</label>
+        <input type="text" class="inp-control" id="inDate" value="01-Oct-2026" oninput="syncPatient()">
+      </div>
+    </div>
+    <div class="inp-group">
+      <label>Referred By Dr.</label>
+      <input type="text" class="inp-control" id="inDoc" value="Self" oninput="syncPatient()">
+    </div>
+
+    <div style="display:flex; gap:6px; margin-top:10px;">
+      <button class="btn" style="background:#f1f5f9; color:#334155; flex:1;" onclick="addRow()">+ Add Single Row</button>
+      <button class="btn" style="background:#f1f5f9; color:#ef4444;" onclick="resetForm()">Clear</button>
+    </div>
+
+    <div style="margin-top:14px; padding:10px; background:#f0fdf4; border:1px solid #bbf7d0; border-radius:8px; font-size:11px; color:#166534;">
+      ✅ <strong>Devigarh Customised:</strong> Uncle ki lab ka naam aur address pehle se set hai!
+    </div>
+  </div>
+
+  <!-- RIGHT: LIVE A4 SHEET -->
+  <div class="a4-container">
+    <div class="a4-page">
+      <div>
+        <!-- LAB HEADER -->
+        <div class="lab-banner">
+          <div>
+            <div class="lab-main-title" contenteditable="true" id="lName">SUKHMANI CLINICAL LAB</div>
+            <div class="lab-sub-title" contenteditable="true" id="lTag">COMPUTERIZED DIAGNOSTIC & PATHOLOGY CENTRE</div>
+            <div class="lab-addr" contenteditable="true" id="lAddr">Shop No. 10, Sharma Market A, Devigarh, Patiala (Punjab) | Ph: +91 98554-07225</div>
+          </div>
+          <div class="lab-cert-box">
+            DEVIGARH, PUNJAB<br>
+            REG NO: PB/DEV/041<br>
+            <strong>COMPUTERIZED LAB</strong>
+          </div>
+        </div>
+
+        <!-- PATIENT INFO STRIP -->
+        <div class="patient-strip">
+          <div class="p-row">
+            <span class="p-label">Patient Name:</span>
+            <span class="p-value" id="dspName">TIRATH RAM</span>
+          </div>
+          <div class="p-row">
+            <span class="p-label">Report Date:</span>
+            <span class="p-value" id="dspDate">01-Oct-2026</span>
+          </div>
+          <div class="p-row">
+            <span class="p-label">Age / Gender:</span>
+            <span class="p-value" id="dspAge">54 Yrs / Male</span>
+          </div>
+          <div class="p-row">
+            <span class="p-label">Ref. By Doctor:</span>
+            <span class="p-value" id="dspDoc">Self</span>
+          </div>
+        </div>
+
+        <!-- CATEGORY TITLE -->
+        <div class="dept-title">
+          <span id="dspCat">BIOCHEMISTRY INVESTIGATION REPORT</span>
+          <span style="font-size:10.5px; font-weight:600; color:#64748b;">Specimen: Serum</span>
+        </div>
+
+        <!-- TEST TABLE -->
+        <table class="results-table">
+          <thead>
+            <tr>
+              <th style="width: 38%;">TEST PARAMETER</th>
+              <th style="width: 20%;">RESULT</th>
+              <th style="width: 14%;">STATUS</th>
+              <th style="width: 12%;">UNITS</th>
+              <th style="width: 16%;">NORMAL RANGE</th>
+              <th class="col-act" style="width: 3%;"></th>
+            </tr>
+          </thead>
+          <tbody id="tableRows">
+            <!-- Dynamic rows -->
+          </tbody>
+        </table>
+      </div>
+
+      <!-- FOOTER -->
+      <div class="a4-footer">
+        <div class="disclaimer-text">
+          * Automated computerized testing performed under clinical supervision.<br>
+          * Results relate only to sample submitted. Devigarh, Patiala.
+        </div>
+        <div class="sign-box">
+          <div class="sign-mock">Sukhmani Lab</div>
+          <div class="sign-line">Lab Technician / Pathologist</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<script>
+const DATA = {
+  biochem: {
+    name: "BIOCHEMISTRY INVESTIGATION REPORT",
+    tests: [
+      { name: "Blood Glucose (Fasting)", val: "96.0", unit: "mg/dL", range: "70.0 - 100.0", status: "normal" },
+      { name: "Blood Glucose (Post Prandial)", val: "135.0", unit: "mg/dL", range: "Up to 140.0", status: "normal" },
+      { name: "Serum Creatinine", val: "0.95", unit: "mg/dL", range: "0.60 - 1.20", status: "normal" },
+      { name: "Blood Urea", val: "26.0", unit: "mg/dL", range: "15.0 - 45.0", status: "normal" },
+      { name: "Serum Uric Acid", val: "5.40", unit: "mg/dL", range: "3.50 - 7.20", status: "normal" },
+      { name: "Serum Bilirubin (Total)", val: "0.80", unit: "mg/dL", range: "0.20 - 1.20", status: "normal" },
+      { name: "SGPT / ALT", val: "34.0", unit: "U/L", range: "10.0 - 40.0", status: "normal" }
+    ]
+  },
+  cbc: {
+    name: "HEMATOLOGY REPORT (CBC / HEMOGRAM)",
+    tests: [
+      { name: "Hemoglobin (Hb)", val: "13.6", unit: "g/dL", range: "13.0 - 17.0", status: "normal" },
+      { name: "Total Leukocyte Count (TLC)", val: "7,800", unit: "/cumm", range: "4,000 - 11,000", status: "normal" },
+      { name: "Neutrophils", val: "64", unit: "%", range: "40.0 - 70.0", status: "normal" },
+      { name: "Lymphocytes", val: "28", unit: "%", range: "20.0 - 40.0", status: "normal" },
+      { name: "Eosinophils", val: "04", unit: "%", range: "01.0 - 06.0", status: "normal" },
+      { name: "Platelet Count", val: "2.50", unit: "Lakhs/cumm", range: "1.50 - 4.50", status: "normal" }
+    ]
+  },
+  lipid: {
+    name: "LIPID PROFILE REPORT",
+    tests: [
+      { name: "Total Cholesterol", val: "185", unit: "mg/dL", range: "130.0 - 200.0", status: "normal" },
+      { name: "Serum Triglycerides", val: "140", unit: "mg/dL", range: "Up to 150.0", status: "normal" },
+      { name: "HDL Cholesterol", val: "46", unit: "mg/dL", range: "40.0 - 60.0", status: "normal" },
+      { name: "LDL Cholesterol", val: "110", unit: "mg/dL", range: "Up to 130.0", status: "normal" }
+    ]
+  },
+  kft: {
+    name: "KIDNEY FUNCTION TEST (KFT)",
+    tests: [
+      { name: "Blood Urea", val: "26.0", unit: "mg/dL", range: "15.0 - 45.0", status: "normal" },
+      { name: "Serum Creatinine", val: "0.95", unit: "mg/dL", range: "0.60 - 1.20", status: "normal" },
+      { name: "Serum Uric Acid", val: "5.40", unit: "mg/dL", range: "3.50 - 7.20", status: "normal" }
+    ]
+  },
+  lft: {
+    name: "LIVER FUNCTION TEST (LFT)",
+    tests: [
+      { name: "Bilirubin Total", val: "0.80", unit: "mg/dL", range: "0.20 - 1.20", status: "normal" },
+      { name: "SGPT / ALT", val: "32.0", unit: "U/L", range: "10.0 - 40.0", status: "normal" },
+      { name: "SGOT / AST", val: "28.0", unit: "U/L", range: "10.0 - 38.0", status: "normal" },
+      { name: "Alkaline Phosphatase", val: "85.0", unit: "U/L", range: "30.0 - 120.0", status: "normal" }
+    ]
+  },
+  thyroid: {
+    name: "THYROID FUNCTION PROFILE",
+    tests: [
+      { name: "Total T3", val: "1.25", unit: "ng/mL", range: "0.80 - 2.00", status: "normal" },
+      { name: "Total T4", val: "8.40", unit: "µg/dL", range: "5.10 - 14.10", status: "normal" },
+      { name: "TSH (Ultrasensitive)", val: "2.85", unit: "µIU/mL", range: "0.35 - 4.94", status: "normal" }
+    ]
+  },
+  urine: {
+    name: "URINE ROUTINE EXAMINATION",
+    tests: [
+      { name: "Color & Appearance", val: "Pale Yellow, Clear", unit: "", range: "Pale Yellow", status: "normal" },
+      { name: "Reaction / pH", val: "6.5", unit: "", range: "5.0 - 8.0", status: "normal" },
+      { name: "Urine Sugar", val: "Nil", unit: "", range: "Nil", status: "normal" },
+      { name: "Urine Protein", val: "Nil", unit: "", range: "Nil", status: "normal" },
+      { name: "Pus Cells", val: "2 - 3", unit: "/HPF", range: "0 - 5", status: "normal" }
+    ]
+  }
+};
+
+function loadPackage(key, btn) {
+  document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  const pkg = DATA[key];
+  if (!pkg) return;
+  document.getElementById('dspCat').innerText = pkg.name;
+  const tbody = document.getElementById('tableRows');
+  tbody.innerHTML = '';
+  pkg.tests.forEach(t => {
+    addRow(t.name, t.val, t.unit, t.range, t.status);
+  });
+}
+
+function addRow(name = "", val = "", unit = "", range = "", status = "normal") {
+  const tbody = document.getElementById('tableRows');
+  const tr = document.createElement('tr');
+  const badgeClass = status === 'high' ? 'badge-high' : (status === 'low' ? 'badge-low' : 'badge-normal');
+  const badgeText = status.toUpperCase();
+
+  tr.innerHTML = `
+    <td><input type="text" class="cell-inp" value="${name}" placeholder="Test Name" style="font-weight:600;"></td>
+    <td><input type="text" class="cell-inp res-num" value="${val}" placeholder="Value" oninput="checkVal(this)"></td>
+    <td><span class="badge ${badgeClass}">${badgeText}</span></td>
+    <td><input type="text" class="cell-inp" value="${unit}" placeholder="Unit"></td>
+    <td><input type="text" class="cell-inp" value="${range}" placeholder="Reference Range"></td>
+    <td class="col-act" style="text-align:center;"><button class="del-btn" onclick="this.closest('tr').remove()">×</button></td>
+  `;
+  tbody.appendChild(tr);
+}
+
+function checkVal(inp) {
+  const tr = inp.closest('tr');
+  const badge = tr.querySelector('.badge');
+  const val = parseFloat(inp.value.trim());
+  const rangeInp = tr.querySelectorAll('.cell-inp')[3];
+  if (!rangeInp || isNaN(val)) return;
+
+  const parts = rangeInp.value.split('-').map(p => parseFloat(p.trim()));
+  if (parts.length === 2 && !isNaN(parts[0]) && !isNaN(parts[1])) {
+    if (val < parts[0]) {
+      badge.className = 'badge badge-low';
+      badge.innerText = 'LOW';
+    } else if (val > parts[1]) {
+      badge.className = 'badge badge-high';
+      badge.innerText = 'HIGH';
+    } else {
+      badge.className = 'badge badge-normal';
+      badge.innerText = 'NORMAL';
+    }
+  }
+}
+
+function syncPatient() {
+  document.getElementById('dspName').innerText = document.getElementById('inName').value || '—';
+  document.getElementById('dspAge').innerText = document.getElementById('inAge').value || '—';
+  document.getElementById('dspDate').innerText = document.getElementById('inDate').value || '—';
+  document.getElementById('dspDoc').innerText = document.getElementById('inDoc').value || '—';
+}
+
+function loadTirathRam() {
+  document.getElementById('inName').value = "TIRATH RAM";
+  document.getElementById('inAge').value = "54 Yrs / Male";
+  document.getElementById('inDoc').value = "Self";
+  syncPatient();
+  loadPackage('biochem', document.querySelector('.chip'));
+}
+
+function resetForm() {
+  document.getElementById('inName').value = "";
+  document.getElementById('inAge').value = "";
+  document.getElementById('inDoc').value = "";
+  syncPatient();
+}
+
+function shareWhatsApp() {
+  const pName = document.getElementById('dspName').innerText;
+  const pDate = document.getElementById('dspDate').innerText;
+  const cat = document.getElementById('dspCat').innerText;
+  let text = `*SUKHMANI CLINICAL LAB - DEVIGARH*\n`;
+  text += `Patient: ${pName} | Date: ${pDate}\n`;
+  text += `Test: ${cat}\n-----------------------\n`;
+  document.querySelectorAll('#tableRows tr').forEach(r => {
+    const inps = r.querySelectorAll('.cell-inp');
+    if (inps.length >= 2 && inps[0].value) {
+      text += `• ${inps[0].value}: ${inps[1].value} ${inps[2] ? inps[2].value : ''}\n`;
+    }
+  });
+  text += `-----------------------\nShop No. 10, Sharma Market A, Devigarh (Patiala)\nPh: 98554-07225`;
+  window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`, '_blank');
+}
+
+// Initial
+syncPatient();
+loadPackage('biochem');
+</script>
+</body>
+</html>
