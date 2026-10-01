@@ -6,7 +6,7 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
-<title>Sukhmani Clinical Lab - Devigarh (Patiala)</title>
+<title>Sukhmani Clinical Lab - Pathology Management System</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
@@ -31,11 +31,11 @@
     min-height: 100vh;
   }
 
-  /* TOP NAVBAR */
+  /* TOP ACTION BAR */
   .navbar {
     background: #ffffff;
     border-bottom: 1.5px solid var(--border);
-    padding: 10px 20px;
+    padding: 12px 24px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -50,8 +50,8 @@
     gap: 12px;
   }
   .brand-logo {
-    width: 42px;
-    height: 42px;
+    width: 40px;
+    height: 40px;
     background: linear-gradient(135deg, #0284c7, #0d9488);
     border-radius: 10px;
     display: grid;
@@ -59,7 +59,6 @@
     color: white;
     font-size: 20px;
     font-weight: 800;
-    box-shadow: 0 3px 8px rgba(2, 132, 199, 0.3);
   }
   .brand-title {
     font-size: 17px;
@@ -68,13 +67,14 @@
     letter-spacing: -0.2px;
   }
   .brand-sub {
-    font-size: 11px;
+    font-size: 11.5px;
     color: #64748b;
     font-weight: 600;
   }
   .nav-buttons {
     display: flex;
     gap: 8px;
+    align-items: center;
   }
   .btn {
     border: none;
@@ -103,127 +103,72 @@
     box-shadow: 0 2px 8px rgba(37, 211, 102, 0.3);
   }
   .btn-wa:hover { background: #1eb954; }
-  .btn-sample {
-    background: #f0fdf4;
-    color: #166534;
-    border: 1px solid #bbf7d0;
-  }
-
-  /* WORKSPACE */
-  .workspace {
-    max-width: 1380px;
-    margin: 18px auto;
-    padding: 0 16px;
-    display: grid;
-    grid-template-columns: 380px 1fr;
-    gap: 20px;
-    align-items: start;
-  }
-
-  /* LEFT CONTROL PANEL */
-  .control-card {
-    background: #ffffff;
-    border-radius: 12px;
-    padding: 18px;
+  .btn-secondary {
+    background: #f1f5f9;
+    color: #334155;
     border: 1px solid var(--border);
-    box-shadow: var(--shadow-md);
-    position: sticky;
-    top: 75px;
   }
-  .section-label {
-    font-size: 11px;
+  .btn-secondary:hover { background: #e2e8f0; }
+
+  /* QUICK PACKAGE BAR (TOP) */
+  .quick-bar {
+    max-width: 900px;
+    margin: 14px auto 0 auto;
+    padding: 0 16px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+  }
+  .pkg-lbl {
+    font-size: 11.5px;
     font-weight: 800;
     text-transform: uppercase;
-    letter-spacing: 0.6px;
-    color: var(--text-secondary);
-    margin-bottom: 10px;
-    display: flex;
-    align-items: center;
-    gap: 5px;
+    color: #64748b;
+    margin-right: 4px;
   }
-
-  /* TEST CHIPS */
-  .chips-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 7px;
-    margin-bottom: 18px;
-  }
-  .chip {
-    padding: 8px 10px;
-    background: #f8fafc;
+  .pkg-chip {
+    padding: 7px 12px;
+    background: #ffffff;
     border: 1.5px solid var(--border);
     border-radius: 8px;
-    font-size: 11.5px;
+    font-size: 12px;
     font-weight: 700;
-    color: var(--text-secondary);
+    color: #334155;
     cursor: pointer;
-    text-align: left;
     transition: all 0.15s ease;
   }
-  .chip:hover {
+  .pkg-chip:hover {
     background: var(--primary-light);
     border-color: #38bdf8;
     color: var(--primary-dark);
   }
-  .chip.active {
+  .pkg-chip.active {
     background: #e0f2fe;
     border-color: #0284c7;
     color: #0369a1;
   }
 
-  /* INPUT FIELDS */
-  .inp-group {
-    margin-bottom: 12px;
-  }
-  .inp-group label {
-    display: block;
-    font-size: 11.5px;
-    font-weight: 700;
-    color: var(--text-secondary);
-    margin-bottom: 4px;
-  }
-  .inp-control {
-    width: 100%;
-    padding: 8px 10px;
-    border: 1.5px solid var(--border);
-    border-radius: 6px;
-    font-size: 13px;
-    font-family: inherit;
-    color: var(--text-primary);
-    background: white;
-  }
-  .inp-control:focus {
-    outline: none;
-    border-color: var(--primary);
-  }
-  .grid-2 {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 8px;
-  }
-
-  /* RIGHT: LIVE A4 PRINT CANVAS */
-  .a4-container {
-    display: flex;
-    justify-content: center;
+  /* WORKSPACE: CENTRIC DIRECT-EDIT CANVAS */
+  .workspace {
+    max-width: 900px;
+    margin: 14px auto 40px auto;
+    padding: 0 16px;
   }
   .a4-page {
-    width: 100%;
-    max-width: 820px;
-    min-height: 1060px;
     background: #ffffff;
     border-radius: 12px;
     padding: 38px 45px;
     box-shadow: var(--shadow-lg);
     border: 1px solid var(--border);
     position: relative;
+    min-height: 1040px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
   }
 
-  /* SUKHMANI LAB HEADER */
+  /* LAB BANNER */
   .lab-banner {
     border-bottom: 3px double #0284c7;
     padding-bottom: 14px;
@@ -239,7 +184,10 @@
     letter-spacing: 0.5px;
     text-transform: uppercase;
     outline: none;
+    border-radius: 4px;
+    padding: 2px 4px;
   }
+  .lab-main-title:focus { background: #f0fdf4; border: 1px dashed #22c55e; }
   .lab-sub-title {
     font-size: 12px;
     font-weight: 700;
@@ -265,7 +213,7 @@
     line-height: 1.4;
   }
 
-  /* PATIENT INFO STRIP */
+  /* PATIENT DIRECT EDIT STRIP */
   .patient-strip {
     border: 1.5px solid #cbd5e1;
     border-radius: 8px;
@@ -275,21 +223,33 @@
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 8px 24px;
-    font-size: 12.5px;
+    font-size: 13px;
   }
   .p-row {
     display: flex;
     align-items: center;
   }
   .p-label {
-    width: 120px;
+    width: 125px;
     font-weight: 700;
     color: #475569;
     flex-shrink: 0;
   }
-  .p-value {
+  .p-input {
+    flex: 1;
+    border: 1px solid transparent;
+    background: transparent;
+    padding: 4px 6px;
+    font-family: inherit;
+    font-size: 13px;
     font-weight: 700;
     color: #0f172a;
+    border-radius: 4px;
+  }
+  .p-input:hover, .p-input:focus {
+    border-color: #94a3b8;
+    background: #ffffff;
+    outline: none;
   }
 
   /* DEPARTMENT TITLE */
@@ -304,6 +264,7 @@
     color: #0f172a;
     display: flex;
     justify-content: space-between;
+    align-items: center;
     margin-bottom: 10px;
   }
 
@@ -325,7 +286,7 @@
   .results-table td {
     padding: 6px 6px;
     border-bottom: 1px solid #f1f5f9;
-    font-size: 12.5px;
+    font-size: 13px;
     vertical-align: middle;
   }
   .cell-inp {
@@ -334,7 +295,7 @@
     border-radius: 4px;
     padding: 4px 5px;
     font-family: inherit;
-    font-size: 12.5px;
+    font-size: 13px;
     color: #0f172a;
     background: transparent;
   }
@@ -346,12 +307,12 @@
   .res-num {
     font-family: 'JetBrains Mono', monospace;
     font-weight: 800;
-    font-size: 13px !important;
+    font-size: 13.5px !important;
   }
   .badge {
     font-size: 9.5px;
     font-weight: 800;
-    padding: 2px 5px;
+    padding: 2px 6px;
     border-radius: 4px;
     display: inline-block;
   }
@@ -369,6 +330,13 @@
     padding: 2px 6px;
   }
   .del-btn:hover { color: #ef4444; }
+
+  .row-adder {
+    display: flex;
+    justify-content: flex-start;
+    gap: 8px;
+    margin-top: 8px;
+  }
 
   /* FOOTER */
   .a4-footer {
@@ -408,9 +376,8 @@
   /* PRINT MODE OVERRIDE */
   @media print {
     body { background: white !important; padding: 0 !important; }
-    .navbar, .control-card, .del-btn, .col-act, th.col-act { display: none !important; }
-    .workspace { display: block !important; margin: 0 !important; padding: 0 !important; }
-    .a4-container { width: 100% !important; margin: 0 !important; }
+    .navbar, .quick-bar, .del-btn, .col-act, th.col-act, .row-adder { display: none !important; }
+    .workspace { max-width: none !important; margin: 0 !important; padding: 0 !important; width: 100% !important; }
     .a4-page {
       border: none !important;
       box-shadow: none !important;
@@ -421,160 +388,128 @@
     }
     .patient-strip { background: white !important; border: 1px solid #64748b !important; }
     .dept-title { background: #f1f5f9 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-    .cell-inp { border: none !important; background: transparent !important; padding: 0 !important; color: black !important; }
+    .p-input, .cell-inp { border: none !important; background: transparent !important; padding: 0 !important; color: black !important; }
   }
 
   /* MOBILE */
-  @media (max-width: 900px) {
-    .workspace { grid-template-columns: 1fr; }
-    .control-card { position: static; }
-    .a4-page { padding: 18px 16px; }
+  @media (max-width: 768px) {
+    .a4-page { padding: 18px 14px; }
     .lab-banner { flex-direction: column; align-items: flex-start; gap: 8px; }
-    .patient-strip { grid-template-columns: 1fr; gap: 5px; }
+    .patient-strip { grid-template-columns: 1fr; gap: 6px; }
   }
 </style>
 </head>
 <body>
 
-<!-- NAVBAR -->
+<!-- TOP NAV BAR -->
 <nav class="navbar">
   <div class="brand-group">
     <div class="brand-logo">🔬</div>
     <div>
-      <div class="brand-title">Sukhmani Clinical Lab Software</div>
-      <div class="brand-sub">Shop No. 10, Sharma Market A, Devigarh (Patiala)</div>
+      <div class="brand-title">Sukhmani Clinical Lab</div>
+      <div class="brand-sub">Computerized Pathology Management System</div>
     </div>
   </div>
   <div class="nav-buttons">
-    <button class="btn btn-sample" onclick="loadTirathRam()">✨ Load Tirath Ram</button>
+    <button class="btn btn-secondary" onclick="resetForm()">🔄 New Patient</button>
     <button class="btn btn-wa" onclick="shareWhatsApp()">📱 WhatsApp Share</button>
     <button class="btn btn-print" onclick="window.print()">🖨️ 1-Click Print / PDF</button>
   </div>
 </nav>
 
-<!-- MAIN -->
+<!-- 1-TAP PACKAGE SELECTOR -->
+<div class="quick-bar">
+  <span class="pkg-lbl">⚡ Quick Packages:</span>
+  <button class="pkg-chip active" onclick="loadPackage('biochem', this)">Biochemistry</button>
+  <button class="pkg-chip" onclick="loadPackage('cbc', this)">CBC (Hemogram)</button>
+  <button class="pkg-chip" onclick="loadPackage('lipid', this)">Lipid Profile</button>
+  <button class="pkg-chip" onclick="loadPackage('kft', this)">KFT (Kidney)</button>
+  <button class="pkg-chip" onclick="loadPackage('lft', this)">LFT (Liver)</button>
+  <button class="pkg-chip" onclick="loadPackage('thyroid', this)">Thyroid Profile</button>
+  <button class="pkg-chip" onclick="loadPackage('urine', this)">Urine Routine</button>
+</div>
+
+<!-- MAIN DIRECT-EDITABLE A4 PAPER -->
 <div class="workspace">
-  
-  <!-- LEFT: CONTROL -->
-  <div class="control-card">
-    <div class="section-label">⚡ Select Test Package</div>
-    <div class="chips-grid">
-      <button class="chip active" onclick="loadPackage('biochem', this)">🧪 Biochemistry</button>
-      <button class="chip" onclick="loadPackage('cbc', this)">🩸 Hemogram (CBC)</button>
-      <button class="chip" onclick="loadPackage('lipid', this)">🫀 Lipid Profile</button>
-      <button class="chip" onclick="loadPackage('kft', this)">🫘 Kidney (KFT)</button>
-      <button class="chip" onclick="loadPackage('lft', this)">🟡 Liver (LFT)</button>
-      <button class="chip" onclick="loadPackage('thyroid', this)">🧬 Thyroid Panel</button>
-      <button class="chip" onclick="loadPackage('urine', this)" style="grid-column: span 2;">🔬 Urine Routine Exam</button>
-    </div>
-
-    <div class="section-label">👤 Patient Details</div>
-    <div class="inp-group">
-      <label>Patient Name</label>
-      <input type="text" class="inp-control" id="inName" value="TIRATH RAM" oninput="syncPatient()">
-    </div>
-    <div class="grid-2">
-      <div class="inp-group">
-        <label>Age & Gender</label>
-        <input type="text" class="inp-control" id="inAge" value="54 Yrs / Male" oninput="syncPatient()">
+  <div class="a4-page">
+    
+    <div>
+      <!-- LAB HEADER (DIRECT EDITABLE) -->
+      <div class="lab-banner">
+        <div>
+          <div class="lab-main-title" contenteditable="true" id="lName">SUKHMANI CLINICAL LAB</div>
+          <div class="lab-sub-title" contenteditable="true" id="lTag">COMPUTERIZED DIAGNOSTIC & PATHOLOGY CENTRE</div>
+          <div class="lab-addr" contenteditable="true" id="lAddr">Shop No. 10, Sharma Market A, Devigarh, Patiala (Punjab) | Ph: +91 98554-07225</div>
+        </div>
+        <div class="lab-cert-box">
+          DEVIGARH, PUNJAB<br>
+          REG NO: PB/DEV/041<br>
+          <strong>COMPUTERIZED LAB</strong>
+        </div>
       </div>
-      <div class="inp-group">
-        <label>Date</label>
-        <input type="text" class="inp-control" id="inDate" value="01-Oct-2026" oninput="syncPatient()">
+
+      <!-- PATIENT DIRECT-EDIT STRIP -->
+      <div class="patient-strip">
+        <div class="p-row">
+          <span class="p-label">Patient Name:</span>
+          <input type="text" class="p-input" id="ptName" value="TIRATH RAM" placeholder="Click to Type Name" style="text-transform:uppercase;">
+        </div>
+        <div class="p-row">
+          <span class="p-label">Report Date:</span>
+          <input type="text" class="p-input" id="ptDate" value="01-Oct-2026">
+        </div>
+        <div class="p-row">
+          <span class="p-label">Age / Gender:</span>
+          <input type="text" class="p-input" id="ptAge" value="54 Yrs / Male" placeholder="e.g. 54 Yrs / Male">
+        </div>
+        <div class="p-row">
+          <span class="p-label">Ref. By Doctor:</span>
+          <input type="text" class="p-input" id="ptDoc" value="Self" placeholder="Doctor Name or Self">
+        </div>
+      </div>
+
+      <!-- SECTION TITLE -->
+      <div class="dept-title">
+        <span id="dspCat" contenteditable="true">BIOCHEMISTRY INVESTIGATION REPORT</span>
+        <span style="font-size:10.5px; font-weight:600; color:#64748b;">Automated Analyzers</span>
+      </div>
+
+      <!-- RESULTS TABLE -->
+      <table class="results-table">
+        <thead>
+          <tr>
+            <th style="width: 38%;">TEST PARAMETER</th>
+            <th style="width: 20%;">RESULT</th>
+            <th style="width: 14%;">STATUS</th>
+            <th style="width: 12%;">UNITS</th>
+            <th style="width: 16%;">REFERENCE RANGE</th>
+            <th class="col-act" style="width: 3%;"></th>
+          </tr>
+        </thead>
+        <tbody id="tableRows">
+          <!-- Dynamic rows -->
+        </tbody>
+      </table>
+
+      <!-- QUICK ADD ROW BUTTON (HIDDEN ON PRINT) -->
+      <div class="row-adder">
+        <button class="btn btn-secondary" style="font-size:12px; padding:6px 12px;" onclick="addRow()">+ Add Single Test Row</button>
       </div>
     </div>
-    <div class="inp-group">
-      <label>Referred By Dr.</label>
-      <input type="text" class="inp-control" id="inDoc" value="Self" oninput="syncPatient()">
+
+    <!-- FOOTER -->
+    <div class="a4-footer">
+      <div class="disclaimer-text">
+        * Automated computerized testing performed under clinical quality standards.<br>
+        * Results relate only to sample submitted. Devigarh, Patiala.
+      </div>
+      <div class="sign-box">
+        <div class="sign-mock">Sukhmani Lab</div>
+        <div class="sign-line">Lab Incharge / Pathologist</div>
+      </div>
     </div>
 
-    <div style="display:flex; gap:6px; margin-top:10px;">
-      <button class="btn" style="background:#f1f5f9; color:#334155; flex:1;" onclick="addRow()">+ Add Single Row</button>
-      <button class="btn" style="background:#f1f5f9; color:#ef4444;" onclick="resetForm()">Clear</button>
-    </div>
-
-    <div style="margin-top:14px; padding:10px; background:#f0fdf4; border:1px solid #bbf7d0; border-radius:8px; font-size:11px; color:#166534;">
-      ✅ <strong>Devigarh Customised:</strong> Uncle ki lab ka naam aur address pehle se set hai!
-    </div>
   </div>
-
-  <!-- RIGHT: LIVE A4 SHEET -->
-  <div class="a4-container">
-    <div class="a4-page">
-      <div>
-        <!-- LAB HEADER -->
-        <div class="lab-banner">
-          <div>
-            <div class="lab-main-title" contenteditable="true" id="lName">SUKHMANI CLINICAL LAB</div>
-            <div class="lab-sub-title" contenteditable="true" id="lTag">COMPUTERIZED DIAGNOSTIC & PATHOLOGY CENTRE</div>
-            <div class="lab-addr" contenteditable="true" id="lAddr">Shop No. 10, Sharma Market A, Devigarh, Patiala (Punjab) | Ph: +91 98554-07225</div>
-          </div>
-          <div class="lab-cert-box">
-            DEVIGARH, PUNJAB<br>
-            REG NO: PB/DEV/041<br>
-            <strong>COMPUTERIZED LAB</strong>
-          </div>
-        </div>
-
-        <!-- PATIENT INFO STRIP -->
-        <div class="patient-strip">
-          <div class="p-row">
-            <span class="p-label">Patient Name:</span>
-            <span class="p-value" id="dspName">TIRATH RAM</span>
-          </div>
-          <div class="p-row">
-            <span class="p-label">Report Date:</span>
-            <span class="p-value" id="dspDate">01-Oct-2026</span>
-          </div>
-          <div class="p-row">
-            <span class="p-label">Age / Gender:</span>
-            <span class="p-value" id="dspAge">54 Yrs / Male</span>
-          </div>
-          <div class="p-row">
-            <span class="p-label">Ref. By Doctor:</span>
-            <span class="p-value" id="dspDoc">Self</span>
-          </div>
-        </div>
-
-        <!-- CATEGORY TITLE -->
-        <div class="dept-title">
-          <span id="dspCat">BIOCHEMISTRY INVESTIGATION REPORT</span>
-          <span style="font-size:10.5px; font-weight:600; color:#64748b;">Specimen: Serum</span>
-        </div>
-
-        <!-- TEST TABLE -->
-        <table class="results-table">
-          <thead>
-            <tr>
-              <th style="width: 38%;">TEST PARAMETER</th>
-              <th style="width: 20%;">RESULT</th>
-              <th style="width: 14%;">STATUS</th>
-              <th style="width: 12%;">UNITS</th>
-              <th style="width: 16%;">NORMAL RANGE</th>
-              <th class="col-act" style="width: 3%;"></th>
-            </tr>
-          </thead>
-          <tbody id="tableRows">
-            <!-- Dynamic rows -->
-          </tbody>
-        </table>
-      </div>
-
-      <!-- FOOTER -->
-      <div class="a4-footer">
-        <div class="disclaimer-text">
-          * Automated computerized testing performed under clinical supervision.<br>
-          * Results relate only to sample submitted. Devigarh, Patiala.
-        </div>
-        <div class="sign-box">
-          <div class="sign-mock">Sukhmani Lab</div>
-          <div class="sign-line">Lab Technician / Pathologist</div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-
 </div>
 
 <script>
@@ -649,7 +584,7 @@ const DATA = {
 };
 
 function loadPackage(key, btn) {
-  document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+  document.querySelectorAll('.pkg-chip').forEach(c => c.classList.remove('active'));
   if (btn) btn.classList.add('active');
   const pkg = DATA[key];
   if (!pkg) return;
@@ -669,11 +604,11 @@ function addRow(name = "", val = "", unit = "", range = "", status = "normal") {
 
   tr.innerHTML = `
     <td><input type="text" class="cell-inp" value="${name}" placeholder="Test Name" style="font-weight:600;"></td>
-    <td><input type="text" class="cell-inp res-num" value="${val}" placeholder="Value" oninput="checkVal(this)"></td>
+    <td><input type="text" class="cell-inp res-num" value="${val}" placeholder="Result" oninput="checkVal(this)"></td>
     <td><span class="badge ${badgeClass}">${badgeText}</span></td>
     <td><input type="text" class="cell-inp" value="${unit}" placeholder="Unit"></td>
     <td><input type="text" class="cell-inp" value="${range}" placeholder="Reference Range"></td>
-    <td class="col-act" style="text-align:center;"><button class="del-btn" onclick="this.closest('tr').remove()">×</button></td>
+    <td class="col-act" style="text-align:center;"><button class="del-btn" title="Remove Test" onclick="this.closest('tr').remove()">×</button></td>
   `;
   tbody.appendChild(tr);
 }
@@ -700,31 +635,20 @@ function checkVal(inp) {
   }
 }
 
-function syncPatient() {
-  document.getElementById('dspName').innerText = document.getElementById('inName').value || '—';
-  document.getElementById('dspAge').innerText = document.getElementById('inAge').value || '—';
-  document.getElementById('dspDate').innerText = document.getElementById('inDate').value || '—';
-  document.getElementById('dspDoc').innerText = document.getElementById('inDoc').value || '—';
-}
-
-function loadTirathRam() {
-  document.getElementById('inName').value = "TIRATH RAM";
-  document.getElementById('inAge').value = "54 Yrs / Male";
-  document.getElementById('inDoc').value = "Self";
-  syncPatient();
-  loadPackage('biochem', document.querySelector('.chip'));
-}
-
 function resetForm() {
-  document.getElementById('inName').value = "";
-  document.getElementById('inAge').value = "";
-  document.getElementById('inDoc').value = "";
-  syncPatient();
+  document.getElementById('ptName').value = "";
+  document.getElementById('ptAge').value = "";
+  document.getElementById('ptDoc').value = "Self";
+  document.querySelectorAll('.res-num').forEach(i => i.value = "");
+  document.querySelectorAll('.badge').forEach(b => {
+    b.className = 'badge badge-normal';
+    b.innerText = 'NORMAL';
+  });
 }
 
 function shareWhatsApp() {
-  const pName = document.getElementById('dspName').innerText;
-  const pDate = document.getElementById('dspDate').innerText;
+  const pName = document.getElementById('ptName').value || 'Patient';
+  const pDate = document.getElementById('ptDate').value;
   const cat = document.getElementById('dspCat').innerText;
   let text = `*SUKHMANI CLINICAL LAB - DEVIGARH*\n`;
   text += `Patient: ${pName} | Date: ${pDate}\n`;
@@ -739,8 +663,7 @@ function shareWhatsApp() {
   window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`, '_blank');
 }
 
-// Initial
-syncPatient();
+// Initial auto setup
 loadPackage('biochem');
 </script>
 </body>
