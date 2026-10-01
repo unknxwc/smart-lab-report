@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SmartLab - Clinical Pathology Report Generator</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --brand: #0284c7;
+    --brand-dark: #0369a1;
+    --brand-light: #e0f2fe;
+    --text-main: #0f172a;
+    --text-muted: #64748b;
+    --border: #e2e8f0;
+    --bg-page: #f8fafc;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: var(--bg-page);
+    color: var(--text-main);
+    padding: 16px;
+  }
+
+  /* TOP APP BAR */
+  .app-header {
+    max-width: 860px;
+    margin: 0 auto 16px auto;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    background: #ffffff;
+    padding: 14px 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px -2px rgba(15, 23, 42, 0.06);
+    border: 1px solid var(--border);
+  }
+  .app-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .app-logo {
+    width: 38px;
+    height: 38px;
+    background: linear-gradient(135deg, #0284c7, #0f766e);
+    border-radius: 10px;
+    display: grid;
+    place-items: center;
+    color: white;
+    font-size: 20px;
+    font-weight: 800;
+  }
+  .app-title {
+    font-size: 17px;
+    font-weight: 800;
+    color: var(--text-main);
+    letter-spacing: -0.3px;
+  }
+  .app-badge {
+    font-size: 11px;
+    background: #dcfce7;
+    color: #15803d;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 20px;
+    text-transform: uppercase;
+  }
+  .actions-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .btn {
+    border: none;
+    outline: none;
+    cursor: pointer;
+    font-family: inherit;
+    font-weight: 600;
+    font-size: 13px;
+    padding: 9px 16px;
+    border-radius: 8px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.15s ease;
+  }
+  .btn-primary {
+    background: linear-gradient(135deg, #0284c7, #0369a1);
+    color: white;
+    box-shadow: 0 2px 8px rgba(2, 132, 199, 0.3);
+  }
+  .btn-primary:hover {
+    background: #0369a1;
+    transform: translateY(-1px);
+  }
+  .btn-outline {
+    background: white;
+    color: #334155;
+    border: 1px solid var(--border);
+  }
+  .btn-outline:hover {
+    background: #f1f5f9;
+  }
+  .btn-secondary {
+    background: #f1f5f9;
+    color: #475569;
+  }
+  .btn-secondary:hover {
+    background: #e2e8f0;
+  }
+
+  /* TEST PRESETS QUICK SELECTOR */
+  .presets-wrapper {
+    max-width: 860px;
+    margin: 0 auto 16px auto;
+    background: #ffffff;
+    padding: 12px 16px;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+  }
+  .presets-label {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .preset-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .preset-pill {
+    padding: 7px 13px;
+    border-radius: 8px;
+    font-size: 12.5px;
+    font-weight: 600;
+    background: #f8fafc;
+    border: 1px solid var(--border);
+    color: #334155;
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+  .preset-pill:hover, .preset-pill.active {
+    background: var(--brand-light);
+    border-color: #38bdf8;
+    color: var(--brand-dark);
+  }
+
+  /* PRINTABLE SHEET / A4 CANVAS */
+  .sheet-container {
+    max-width: 860px;
+    margin: 0 auto 40px auto;
+  }
+  .report-sheet {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 40px 48px;
+    border: 1px solid var(--border);
+    box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.08);
+    position: relative;
+    min-height: 1050px;
+  }
+
+  /* LAB HEADER */
+  .lab-header {
+    text-align: center;
+    border-bottom: 3px double #0284c7;
+    padding-bottom: 16px;
+    margin-bottom: 20px;
+  }
+  .lab-name {
+    font-size: 26px;
+    font-weight: 800;
+    color: #0369a1;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    outline: none;
+    padding: 2px 6px;
+    border-radius: 4px;
+  }
+  .lab-name:focus { background: #f0fdf4; border: 1px dashed #22c55e; }
+  .lab-tagline {
+    font-size: 13px;
+    font-weight: 600;
+    color: #475569;
+    margin-top: 4px;
+    outline: none;
+  }
+  .lab-details {
+    font-size: 11.5px;
+    color: #64748b;
+    margin-top: 4px;
+    outline: none;
+  }
+
+  /* PATIENT DETAILS TABLE-GRID */
+  .patient-card {
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin-bottom: 20px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px 24px;
+    background: #fafafa;
+    font-size: 13px;
+  }
+  .field-box {
+    display: flex;
+    align-items: center;
+  }
+  .field-box .lbl {
+    font-weight: 700;
+    color: #334155;
+    width: 140px;
+    flex-shrink: 0;
+  }
+  .field-box input {
+    flex: 1;
+    border: 1px solid #cbd5e1;
+    background: white;
+    border-radius: 5px;
+    padding: 5px 8px;
+    font-size: 13px;
+    font-family: inherit;
+    color: #0f172a;
+    outline: none;
+  }
+  .field-box input:focus {
+    border-color: #0284c7;
+    box-shadow: 0 0 0 2px rgba(2, 132, 199, 0.15);
+  }
+
+  /* REPORT SECTION BAR */
+  .section-banner {
+    background: #f1f5f9;
+    border-left: 4px solid #0284c7;
+    font-weight: 800;
+    font-size: 13px;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    color: #0f172a;
+    padding: 8px 12px;
+    margin-bottom: 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  /* TEST TABLE */
+  .report-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 24px;
+  }
+  .report-table th {
+    background: #ffffff;
+    border-bottom: 2px solid #0f172a;
+    font-size: 12px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #0f172a;
+    padding: 8px 8px;
+    text-align: left;
+  }
+  .report-table td {
+    border-bottom: 1px solid #f1f5f9;
+    padding: 6px 8px;
+    vertical-align: middle;
+  }
+  .report-table tr:hover td {
+    background: #fafafa;
+  }
+  .report-table input {
+    width: 100%;
+    border: 1px solid transparent;
+    padding: 5px 6px;
+    border-radius: 4px;
+    font-family: inherit;
+    font-size: 13px;
+    color: #1e293b;
+    outline: none;
+  }
+  .report-table input:hover {
+    border-color: #e2e8f0;
+    background: white;
+  }
+  .report-table input:focus {
+    border-color: #0284c7;
+    background: white;
+  }
+  .res-input {
+    font-weight: 700;
+    color: #0f172a;
+    font-family: 'JetBrains Mono', monospace !important;
+    font-size: 13.5px !important;
+  }
+  .btn-del-row {
+    color: #ef4444;
+    background: transparent;
+    border: none;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 2px 6px;
+    border-radius: 4px;
+  }
+  .btn-del-row:hover { background: #fee2e2; }
+
+  /* SIGNATURE FOOTER */
+  .report-footer {
+    margin-top: 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding-top: 20px;
+    border-top: 1px solid #e2e8f0;
+  }
+  .disclaimer {
+    font-size: 11px;
+    color: #94a3b8;
+    line-height: 1.5;
+  }
+  .sign-area {
+    text-align: center;
+    width: 200px;
+  }
+  .sign-line {
+    border-top: 1.5px solid #0f172a;
+    padding-top: 6px;
+    font-size: 12px;
+    font-weight: 700;
+    color: #0f172a;
+  }
+
+  /* PRINT MODE STYLES (CRITICAL) */
+  @media print {
+    body {
+      background: white !important;
+      padding: 0 !important;
+      color: black !important;
+    }
+    .app-header, .presets-wrapper, .btn-del-row, .col-action, th.col-action {
+      display: none !important;
+    }
+    .sheet-container {
+      margin: 0 !important;
+      max-width: none !important;
+    }
+    .report-sheet {
+      border: none !important;
+      box-shadow: none !important;
+      padding: 12mm 15mm !important;
+      min-height: 0 !important;
+    }
+    .patient-card {
+      background: white !important;
+      border: 1px solid #64748b !important;
+    }
+    .section-banner {
+      background: #f1f5f9 !important;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+    input {
+      border: none !important;
+      background: transparent !important;
+      padding: 0 !important;
+      color: black !important;
+      -webkit-appearance: none;
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="app-header">
+  <div class="app-brand">
+    <div class="app-logo">🔬</div>
+    <div>
+      <div style="display:flex; align-items:center; gap:8px;">
+        <span class="app-title">SmartLab Quick Generator</span>
+        <span class="app-badge">Instant Demo</span>
+      </div>
+      <div style="font-size:11.5px; color:#64748b;">Fast 1-Click Clinical Reports for Pathology Centers</div>
+    </div>
+  </div>
+  <div class="actions-group">
+    <button class="btn btn-secondary" onclick="loadSampleData()">✨ Load Sample (Tirath Ram)</button>
+    <button class="btn btn-outline" onclick="addNewTestRow()">+ Add Test Row</button>
+    <button class="btn btn-primary" onclick="window.print()">🖨️ Print / Save PDF</button>
+  </div>
+</div>
+
+<!-- PRESETS SELECTOR -->
+<div class="presets-wrapper">
+  <div class="presets-label">⚡ 1-Tap Load Standard Packages (With Ranges):</div>
+  <div class="preset-pills">
+    <button class="preset-pill active" onclick="switchPreset('biochem', this)">🧪 Biochemistry (Sugar / LFT / KFT)</button>
+    <button class="preset-pill" onclick="switchPreset('cbc', this)">🩸 Complete Blood Count (CBC)</button>
+    <button class="preset-pill" onclick="switchPreset('lipid', this)">🫀 Lipid Profile (Cholesterol)</button>
+    <button class="preset-pill" onclick="switchPreset('thyroid', this)">🧬 Thyroid Profile (T3, T4, TSH)</button>
+    <button class="preset-pill" onclick="switchPreset('urine', this)">🔬 Urine Routine (Complete)</button>
+  </div>
+</div>
+
+<!-- PRINTABLE SHEET -->
+<div class="sheet-container">
+  <div class="report-sheet" id="reportSheet">
+    
+    <!-- HEADER -->
+    <div class="lab-header">
+      <div class="lab-name" contenteditable="true" id="labName" onblur="saveSettings()">CITY CLINICAL LABORATORY</div>
+      <div class="lab-tagline" contenteditable="true" id="labTag" onblur="saveSettings()">ADVANCED COMPUTERIZED DIAGNOSTIC & PATHOLOGY CENTRE</div>
+      <div class="lab-details" contenteditable="true" id="labInfo" onblur="saveSettings()">Main Road, Opp. Civil Hospital | Contact: +91 98765-XXXXX | Reg No: PB/LAB/2026/049</div>
+    </div>
+
+    <!-- PATIENT INFO -->
+    <div class="patient-card">
+      <div class="field-box">
+        <span class="lbl">Patient Name:</span>
+        <input type="text" id="pName" value="TIRATH RAM" style="font-weight:700; text-transform:uppercase;">
+      </div>
+      <div class="field-box">
+        <span class="lbl">Report Date:</span>
+        <input type="text" id="pDate" value="01-Oct-2026">
+      </div>
+      <div class="field-box">
+        <span class="lbl">Age / Gender:</span>
+        <input type="text" id="pAge" value="54 Yrs / Male">
+      </div>
+      <div class="field-box">
+        <span class="lbl">Referred By Dr:</span>
+        <input type="text" id="pDoc" value="Self">
+      </div>
+    </div>
+
+    <!-- CATEGORY -->
+    <div class="section-banner">
+      <span id="categoryLabel">BIOCHEMISTRY INVESTIGATION REPORT</span>
+      <span style="font-size:11px; font-weight:600; color:#64748b;">Automated Analyzers</span>
+    </div>
+
+    <!-- TABLE -->
+    <table class="report-table">
+      <thead>
+        <tr>
+          <th style="width: 38%;">TEST DESCRIPTION</th>
+          <th style="width: 22%;">OBSERVED VALUE</th>
+          <th style="width: 15%;">UNITS</th>
+          <th style="width: 20%;">REFERENCE RANGE</th>
+          <th class="col-action" style="width: 5%;"></th>
+        </tr>
+      </thead>
+      <tbody id="tableBody">
+        <!-- Rendered dynamically -->
+      </tbody>
+    </table>
+
+    <!-- FOOTER SIGNATURES -->
+    <div class="report-footer">
+      <div class="disclaimer">
+        * Samples processed using automated calibrated photometric equipment.<br>
+        * Findings correlate clinically. Electronic verification report.
+      </div>
+      <div class="sign-area">
+        <div style="font-size: 11px; color: #64748b; margin-bottom: 25px;">Verified By:</div>
+        <div class="sign-line">Medical Lab Technologist</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+const PACKAGES = {
+  biochem: {
+    title: "DEPARTMENT OF BIOCHEMISTRY",
+    items: [
+      { name: "Blood Glucose (Fasting)", result: "96.0", unit: "mg/dL", range: "70.0 - 100.0" },
+      { name: "Blood Glucose (Post Prandial)", result: "134.0", unit: "mg/dL", range: "Up to 140.0" },
+      { name: "Serum Creatinine", result: "0.95", unit: "mg/dL", range: "0.60 - 1.20" },
+      { name: "Blood Urea", result: "26.0", unit: "mg/dL", range: "15.0 - 45.0" },
+      { name: "Serum Uric Acid", result: "5.40", unit: "mg/dL", range: "3.50 - 7.20" },
+      { name: "Serum Bilirubin (Total)", result: "0.80", unit: "mg/dL", range: "0.20 - 1.20" },
+      { name: "SGPT / ALT", result: "34.0", unit: "U/L", range: "10.0 - 40.0" }
+    ]
+  },
+  cbc: {
+    title: "DEPARTMENT OF HEMATOLOGY (CBC / HEMOGRAM)",
+    items: [
+      { name: "Hemoglobin (Hb)", result: "13.6", unit: "g/dL", range: "13.0 - 17.0" },
+      { name: "Total Leukocyte Count (TLC)", result: "7,800", unit: "/cumm", range: "4,000 - 11,000" },
+      { name: "Neutrophils", result: "64", unit: "%", range: "40.0 - 70.0" },
+      { name: "Lymphocytes", result: "28", unit: "%", range: "20.0 - 40.0" },
+      { name: "Eosinophils", result: "04", unit: "%", range: "01.0 - 06.0" },
+      { name: "Monocytes", result: "04", unit: "%", range: "02.0 - 08.0" },
+      { name: "Platelet Count", result: "2.60", unit: "Lakhs/cumm", range: "1.50 - 4.50" },
+      { name: "Packed Cell Volume (PCV)", result: "42.0", unit: "%", range: "40.0 - 50.0" },
+      { name: "RBC Count", result: "4.80", unit: "mill/cumm", range: "4.50 - 5.50" }
+    ]
+  },
+  lipid: {
+    title: "LIPID PROFILE (CORONARY RISK PANEL)",
+    items: [
+      { name: "Serum Cholesterol (Total)", result: "182", unit: "mg/dL", range: "130.0 - 200.0" },
+      { name: "Serum Triglycerides", result: "138", unit: "mg/dL", range: "Up to 150.0" },
+      { name: "HDL Cholesterol", result: "48", unit: "mg/dL", range: "40.0 - 60.0" },
+      { name: "LDL Cholesterol", result: "106", unit: "mg/dL", range: "Up to 130.0" },
+      { name: "VLDL Cholesterol", result: "27.6", unit: "mg/dL", range: "5.0 - 30.0" },
+      { name: "Cholesterol / HDL Ratio", result: "3.79", unit: "Ratio", range: "3.3 - 4.4" }
+    ]
+  },
+  thyroid: {
+    title: "THYROID FUNCTION PROFILE",
+    items: [
+      { name: "Total Triiodothyronine (T3)", result: "1.25", unit: "ng/mL", range: "0.80 - 2.00" },
+      { name: "Total Thyroxine (T4)", result: "8.40", unit: "µg/dL", range: "5.10 - 14.10" },
+      { name: "Thyroid Stimulating Hormone (TSH)", result: "2.85", unit: "µIU/mL", range: "0.35 - 4.94" }
+    ]
+  },
+  urine: {
+    title: "URINE ROUTINE & MICROSCOPIC EXAMINATION",
+    items: [
+      { name: "Color & Appearance", result: "Pale Yellow, Clear", unit: "", range: "Pale Yellow" },
+      { name: "Reaction / pH", result: "6.5", unit: "", range: "5.0 - 8.0" },
+      { name: "Specific Gravity", result: "1.020", unit: "", range: "1.010 - 1.030" },
+      { name: "Urine Protein (Albumin)", result: "Nil", unit: "", range: "Nil" },
+      { name: "Urine Glucose (Sugar)", result: "Nil", unit: "", range: "Nil" },
+      { name: "Pus Cells (Leukocytes)", result: "2 - 3", unit: "/HPF", range: "0 - 5" },
+      { name: "Epithelial Cells", result: "1 - 2", unit: "/HPF", range: "0 - 4" },
+      { name: "RBCs", result: "Nil", unit: "/HPF", range: "Nil" }
+    ]
+  }
+};
+
+let currentKey = "biochem";
+
+function renderPackage(key) {
+  currentKey = key;
+  const pkg = PACKAGES[key];
+  if (!pkg) return;
+  document.getElementById("categoryLabel").innerText = pkg.title;
+  const tbody = document.getElementById("tableBody");
+  tbody.innerHTML = "";
+  pkg.items.forEach(it => {
+    appendRow(it.name, it.result, it.unit, it.range);
+  });
+}
+
+function appendRow(name = "", val = "", unit = "", range = "") {
+  const tbody = document.getElementById("tableBody");
+  const tr = document.createElement("tr");
+  tr.innerHTML = `
+    <td><input type="text" value="${name}" placeholder="Test Name" style="font-weight:600;"></td>
+    <td><input type="text" class="res-input" value="${val}" placeholder="Observed Result"></td>
+    <td><input type="text" value="${unit}" placeholder="Unit"></td>
+    <td><input type="text" value="${range}" placeholder="Reference Range"></td>
+    <td class="col-action" style="text-align:center;">
+      <button class="btn-del-row" title="Delete Row" onclick="this.closest('tr').remove()">×</button>
+    </td>
+  `;
+  tbody.appendChild(tr);
+}
+
+function addNewTestRow() {
+  appendRow("", "", "", "");
+}
+
+function switchPreset(key, btn) {
+  document.querySelectorAll(".preset-pill").forEach(p => p.classList.remove("active"));
+  if (btn) btn.classList.add("active");
+  renderPackage(key);
+}
+
+function loadSampleData() {
+  document.getElementById("pName").value = "TIRATH RAM";
+  document.getElementById("pAge").value = "54 Yrs / Male";
+  document.getElementById("pDoc").value = "Self";
+  renderPackage("biochem");
+}
+
+function saveSettings() {
+  localStorage.setItem("lab_name", document.getElementById("labName").innerText);
+  localStorage.setItem("lab_tag", document.getElementById("labTag").innerText);
+  localStorage.setItem("lab_info", document.getElementById("labInfo").innerText);
+}
+
+function restoreSettings() {
+  if (localStorage.getItem("lab_name")) document.getElementById("labName").innerText = localStorage.getItem("lab_name");
+  if (localStorage.getItem("lab_tag")) document.getElementById("labTag").innerText = localStorage.getItem("lab_tag");
+  if (localStorage.getItem("lab_info")) document.getElementById("labInfo").innerText = localStorage.getItem("lab_info");
+}
+
+// Auto set today's date formatted
+const d = new Date();
+const months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+document.getElementById("pDate").value = `${String(d.getDate()).padStart(2, '0')}-${months[d.getMonth()]}-${d.getFullYear()}`;
+
+restoreSettings();
+renderPackage("biochem");
+</script>
+</body>
+</html>
